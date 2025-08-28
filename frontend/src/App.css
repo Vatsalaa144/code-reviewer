@@ -1,6 +1,6 @@
 * {
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -9,26 +9,41 @@ body,
 #root {
   height: 100%;
   width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 main {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   padding: 1.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  min-height: 600px;
 }
 
 main .left,
 main .right {
   height: 100%;
-  flex-basis: 50%;
-  border-radius: 0.7rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
 main .left {
-  background-color: #000000;
+  flex: 1;
+  background: rgba(12, 12, 12, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
+  overflow: hidden;
+}
+
+main .left:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.2), 0 15px 15px -5px rgba(0, 0, 0, 0.08);
 }
 
 .left .code,
@@ -37,27 +52,357 @@ main .left {
   height: 100%;
   width: 100%;
   margin: 0;
-  border-radius: 0.7rem;
-  background-color: #0c0c0c;
+  border-radius: 1rem;
+  background: transparent;
+}
+
+.left .code {
+  padding: 1rem;
+  height: calc(100% - 80px);
+  position: relative;
+}
+
+/* Placeholder styling */
+.code-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #718096;
+  font-size: 1.2rem;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+.code-placeholder .main-text {
+  font-size: 1.4rem;
+  color: #a0aec0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.code-placeholder .sub-text {
+  font-size: 1rem;
+  color: #718096;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.code-placeholder .highlight {
+  color: #667eea;
+  font-weight: 700;
+}
+
+/* Hide placeholder when there's content */
+.left .code.has-content .code-placeholder {
+  display: none;
+}
+
+.left .code .npm__react-simple-code-editor__textarea,
+.left .code pre {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 400;
 }
 
 main .left .review {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: rgb(219, 219, 255);
-  color: #000000;
-  padding: 0.5rem 2rem;
-  font-weight: 500;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
-  border-radius: 0.7rem;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+main .left .review:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+main .left .review:active {
+  transform: translateY(-1px) scale(1.02);
+}
 
 main .right {
-  background-color: #343434;
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
   overflow: auto;
+  color: #2d3748;
+  position: relative;
+}
+
+main .right:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.2), 0 15px 15px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom scrollbar */
+main .right::-webkit-scrollbar {
+  width: 8px;
+}
+
+main .right::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+main .right::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+main .right::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* Enhanced markdown styles */
+.right h1, .right h2, .right h3, .right h4, .right h5, .right h6 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  font-weight: 700;
+}
+
+.right h1 { font-size: 2rem; color: #667eea; }
+.right h2 { font-size: 1.5rem; color: #764ba2; }
+.right h3 { font-size: 1.25rem; }
+
+.right p {
+  margin-bottom: 1rem;
+  color: #4a5568;
+}
+
+.right ul, .right ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.right li {
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.right code {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+.right pre {
+  background: #1a202c;
+  color: #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.right pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.right blockquote {
+  border-left: 4px solid #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-style: italic;
+}
+
+/* Loading state */
+.right.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #718096;
+  font-style: italic;
+}
+
+/* Empty state */
+.right:empty::before {
+  content: "Click 'Review' to analyze your code...";
+  color: #a0aec0;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  main {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  main .right {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 1rem;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  main .left,
+  main .right {
+    flex: none;
+    height: 50vh;
+    min-height: 300px;
+  }
+  
+  main .left {
+    order: 1;
+  }
+  
+  main .right {
+    order: 2;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .left .code {
+    padding: 0.75rem;
+    height: calc(100% - 70px);
+  }
+  
+  .code-placeholder {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+  
+  .code-placeholder .main-text {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .code-placeholder .sub-text {
+    font-size: 0.9rem;
+  }
+  
+  .left .code .npm__react-simple-code-editor__textarea,
+  .left .code pre {
+    font-size: 13px !important;
+  }
+  
+  main .left .review {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .right h1 { font-size: 1.5rem; }
+  .right h2 { font-size: 1.25rem; }
+  .right h3 { font-size: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+  
+  main .left,
+  main .right {
+    border-radius: 0.75rem;
+    min-height: 250px;
+  }
+  
+  main .right {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .left .code {
+    padding: 0.5rem;
+  }
+  
+  .code-placeholder {
+    font-size: 0.9rem;
+    max-width: 95%;
+  }
+  
+  .code-placeholder .main-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .code-placeholder .sub-text {
+    font-size: 0.85rem;
+  }
+  
+  .left .code .npm__react-simple-code-editor__textarea,
+  .left .code pre {
+    font-size: 12px !important;
+  }
+  
+  main .left .review {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  main {
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  main .left,
+  main .right {
+    height: 100%;
+    flex: 1;
+  }
+}
+
+/* Tablet landscape */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  main .right {
+    font-size: 0.9rem;
+    padding: 1.5rem;
+  }
 }
