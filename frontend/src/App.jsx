@@ -76,7 +76,7 @@ function App() {
             {!code.trim() && (
               <div className="code-placeholder">
                 <div className="main-text">
-                  Copy and Paste Your <span className="highlight">Code</span> Here
+                  Copy and Paste Your <span className="highlight">CODE</span> Here
                 </div>
                 <div className="sub-text">
                   To Review It
